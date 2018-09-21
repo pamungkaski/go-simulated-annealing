@@ -12,6 +12,8 @@ import (
 
 // SimulatedAnnealing is the main interface that holds all of the SimulatedAnnealing Business Logic.
 type SimulatedAnnealing interface {
+	//KeepGoing is a function that will check whether temperature already reached minimum to stop the loop.
+	KeepGoing() bool
 	// Cost function is the function that being simulated.
 	CostFunction(firstValue, secondValue float64) float64
 	// AcceptanceProbability is the function that will calculate which value that is more likely to be the answer.
@@ -20,15 +22,13 @@ type SimulatedAnnealing interface {
 	GenerateNeighbor() (float64, float64)
 	// Cooling is the function to decrease temperature by alpha percent.
 	Cooling()
-	//Visualizing is a function that will visualize models into an image.
+	// Visualizing is a function that will visualize models into an image.
 	Visualizing()
-	//
-	KeepGoing() bool
-	//
+	// AppendSolution is a function that will input and save the accepted solution into annealing struct.
 	AppendSolution(firstValue, secondValue, Energy float64)
-	//
+	//InputBest is a function that will save the best solution iterator number into the struct.
 	InputBest(it int)
-	//
+	// BestSolution is a function that print saved best solution and its accuration.
 	BestSolution()
 }
 
@@ -40,31 +40,35 @@ type Visualizer interface {
 // Annealing is the struct that implement SimulatedAnnealing interface.
 // This struct will hold the temperature, alpha, and value range.
 type Annealing struct {
-	temperature   float64
-	alpha         float64
-	minValue      float64
-	maxValue      float64
-	goal float64
-	solutionXList []float64
-	solutionYList []float64
-	solutionZList []float64
-	best          int
-	visualizer    Visualizer
+	temperature        float64
+	alpha              float64
+	minValue           float64
+	maxValue           float64
+	goal               float64
+	minimumTemperature float64
+	solutionXList      []float64
+	solutionYList      []float64
+	solutionZList      []float64
+	best               int
+	visualizer         Visualizer
 }
 
-func NewAnnealing(temperature, alpha, minValue, maxValue, goal float64) SimulatedAnnealing {
+// NewAnnealing is a function that create SimulatedAnnealing instance using already set params.
+func NewAnnealing(temperature, alpha, minValue, maxValue, goal, minimumTemperature float64) SimulatedAnnealing {
 	return &Annealing{
-		temperature: temperature,
-		alpha:       alpha,
-		minValue:    minValue,
-		maxValue:    maxValue,
-		goal:goal,
-		visualizer:  &visualizer.Plotting{},
+		temperature:        temperature,
+		alpha:              alpha,
+		minValue:           minValue,
+		maxValue:           maxValue,
+		goal:               goal,
+		minimumTemperature: minimumTemperature,
+		visualizer:         &visualizer.Plotting{},
 	}
 }
 
+// KeepGoing is a function that will check whether temperature already reached minimum to stop the loop.
 func (a *Annealing) KeepGoing() bool {
-	return a.temperature > 0.0001
+	return a.temperature > a.minimumTemperature
 }
 
 // Cost function is the function that being simulated.
@@ -112,20 +116,24 @@ func (a *Annealing) Cooling() {
 	a.temperature *= a.alpha
 }
 
+// Visaulizing is a function that will call a visualizer to do a visualization of the model solution.
 func (a *Annealing) Visualizing() {
 	a.visualizer.Visualize(a.solutionXList, a.solutionYList, a.solutionZList)
 }
 
+// AppendSolution is a function that will input and save the accepted solution into annealing struct.
 func (a *Annealing) AppendSolution(firstValue, secondValue, energy float64) {
 	a.solutionXList = append(a.solutionXList, firstValue)
 	a.solutionYList = append(a.solutionYList, secondValue)
 	a.solutionZList = append(a.solutionZList, energy)
 }
 
+// InputBest is a function that will save the best solution iterator number into the struct.
 func (a *Annealing) InputBest(it int) {
 	a.best = it
 }
 
+// BestSolution is a function that print saved best solution and its accuration.
 func (a *Annealing) BestSolution() {
 	accuration := math.Abs(a.solutionZList[a.best] / a.goal)
 	fmt.Printf("fV:= %f sV:= %f E:= %f, Accuration:= %f%%\n", a.solutionXList[a.best], a.solutionYList[a.best], a.solutionZList[a.best], accuration*100)
