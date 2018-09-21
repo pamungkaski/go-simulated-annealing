@@ -93,3 +93,6 @@ It basically tells that the minimum value can be reached on the maximum or minum
  $ cd $GOPATH/src/github.com/pamungkaski/go-simulated-annealing
  $ go run app/main.go
 ```
+
+## Disclaimer
+> **DO NOT USE THIS PROJECT AS YOUR SUBMISSION FOR AI COURSE WORK ASSIGNMENT**
