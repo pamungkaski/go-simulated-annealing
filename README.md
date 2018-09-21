@@ -8,6 +8,30 @@ This repository is my course work project.
 ## Cost function
 ![](https://image.ibb.co/cpKPZz/Screen_Shot_2018_09_21_at_21_56_18.png)
 
+```go
+func (a *Annealing) CostFunction(firstValue, secondValue float64) float64 {
+	var result float64
+	fVSquare := firstValue * firstValue
+	sVSquare := secondValue * secondValue
+
+	fVSin := math.Sin(firstValue)
+	sVCos := math.Cos(secondValue)
+
+	subtrahend := math.Sqrt(fVSquare+sVSquare) / math.Pi
+	insideExponential := math.Abs(1 - subtrahend)
+	exponent := math.Exp(insideExponential)
+
+	result = -1 * math.Abs(fVSin*sVCos*exponent)
+
+	return result
+}
+```
+
+## Main Function
+Please open the detailed file [main.go](https://github.com/pamungkaski/go-simulated-annealing/blob/master/app/main.go)
+
+The comment is already tell how the program work.
+
 ## Current Parameter
 Temperature is being set become 1000 for more accuration purpose. The changes of temperature will effect the number of iterations
 
