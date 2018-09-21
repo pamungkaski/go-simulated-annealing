@@ -1,5 +1,12 @@
 # Simulated Annealing using Golang
 
+## Description
+Simulated Annealing is an Algorithm that search for maximum/minimum value of a function.
+
+This repository is my course work project.
+
+The main problem of the project is to search the minimum value of the problem.
+
 ## Visualization
 
 ![](https://svgshare.com/i/8PY.svg)
@@ -7,13 +14,6 @@
 >NB: The **bigger** the circle, the **smaller** the value
 
 > It is located inside visualization folder on the repository
-
-## Description
-Simulated Annealing is an Algorithm that search for maximum/minimum value of a function.
-
-This repository is my course work project.
-
-The main problem of the project is to search the minimum value of the problem.
 
 ## Cost function
 ![](https://image.ibb.co/cpKPZz/Screen_Shot_2018_09_21_at_21_56_18.png)
