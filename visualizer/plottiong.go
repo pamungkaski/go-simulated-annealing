@@ -1,39 +1,65 @@
 package visualizer
 
 import (
-	"gonum.org/v1/gonum/mat"
-	"gonum.org/v1/plot/plotter"
-	"gonum.org/v1/plot/palette"
+	"image/color"
+	"math"
+	"sort"
+
 	"gonum.org/v1/plot"
+	"gonum.org/v1/plot/plotter"
+	"gonum.org/v1/plot/vg"
+	"gonum.org/v1/plot/vg/draw"
 )
 
-type Plotting struct {
-	row int
+type Plotting struct{}
+type Data struct {
+	X float64
+	Y float64
+	Z float64
 }
 
-func (p *Plotting)Visualize(XList, YList, ZList []float64) {
-	list := append(XList, append(YList, ZList...)...)
-	matrix := unitGrid{
-		mat.NewDense(
-			p.row,
-			len(XList),
-			list,
-		),
+func (p *Plotting) Visualize(XList, YList, ZList []float64) {
+	scatterData := make(plotter.XYZs, len(XList))
+	for i := range XList {
+		scatterData[i].X = XList[i]
+		scatterData[i].Y = YList[i]
+		scatterData[i].Z = ZList[i] * -1.0
 	}
-	levels := []float64{1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5, 8.5, 9.5, 10.5, 11.5}
+	sort.Slice(scatterData, func(i, j int) bool {
+		return scatterData[i].Z < scatterData[j].Z
+	})
 
-	c := plotter.NewContour(matrix, levels, palette.Rainbow(10, palette.Blue, palette.Red, 1, 1, 1))
-	c.LineStyles[0].Width *= 5
+	minZ, maxZ := math.Inf(1), math.Inf(-1)
+	for _, xyz := range scatterData {
+		if xyz.Z > maxZ {
+			maxZ = xyz.Z
+		}
+		if xyz.Z < minZ {
+			minZ = xyz.Z
+		}
+	}
 
 	plt, _ := plot.New()
+	plt.Title.Text = "Simulated Annealing"
+	plt.X.Label.Text = "X"
+	plt.Y.Label.Text = "Y"
+	plt.Legend.Add("The bigger the circle, the smaller the value")
 
-	//plt.Add(h)
-	plt.Add(c)
-	plt.Add(plotter.NewGlyphBoxes())
+	sc, err := plotter.NewScatter(scatterData)
+	if err != nil {
+		panic(err)
+	}
+	// Specify style for individual points.
+	sc.GlyphStyleFunc = func(i int) draw.GlyphStyle {
+		x, y, z := scatterData.XYZ(i)
+		c := color.RGBA{R: 190 + uint8(x*20), G: 128 + uint8(y*20), B: 0 + uint8(z*20), A: 255}
+		var minRadius, maxRadius = vg.Points(-10), vg.Points(10)
+		rng := maxRadius - minRadius
+		d := (z - minZ) / (maxZ - minZ)
+		r := vg.Length(d) * rng * 2
+		return draw.GlyphStyle{Color: c, Radius: r, Shape: draw.CircleGlyph{}}
+	}
+	plt.Add(sc)
 
-	plt.X.Padding = 0
-	plt.Y.Padding = 0
-	plt.X.Max = 3.5
-	plt.Y.Max = 2.5
-	plt.Save(2000, 2000, "visualization/contour.png")
+	plt.Save(10*vg.Inch, 10*vg.Inch, "visualization/contour.svg")
 }
