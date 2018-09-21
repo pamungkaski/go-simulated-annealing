@@ -1,9 +1,11 @@
 # Simulated Annealing using Golang
 
 ## Description
-Simulated Annealing is an Alogirthm that search for maximum/minimum value of a function.
+Simulated Annealing is an Algorithm that search for maximum/minimum value of a function.
 
 This repository is my course work project.
+
+The main problem of the project is to search the minimum value of the problem.
 
 ## Cost function
 ![](https://image.ibb.co/cpKPZz/Screen_Shot_2018_09_21_at_21_56_18.png)
@@ -53,6 +55,15 @@ It being set to be 1000 to increase the accuration of the model
 * E:= -19.196317
 * Accuration:= 99.936577%
 
+## Conclusion
+How the problem(CostFunction) solved by Simmulated Annealing is by picking a random function inside the range.
+The number of picking itself is based on the Temperature cooling and minimal iterations.
+Every solution that are being generated randomly are not directly thrown away. To maximize the accuration,
+every solution will be randomly picked or not picked by a certain probabilty that being calculated using AcceptanceProbability Function.
+
+
+The Data visualization shows that the mainimum value of the problem are located at the very end of every quadrant inside of the cartesian axis.
+It basically tells that the minimum value can be reached on the maximum or minumum value on both x1 and x2.
 ## Stack
 * Go <= 1.10.3
 * Already set **$GOPATH** and **$GOROOT**

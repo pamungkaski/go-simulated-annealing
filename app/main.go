@@ -17,15 +17,17 @@ func main() {
 	minimumIterations := 1000
 
 	// Initialization
+	// Seed the random number generator
 	rand.Seed(time.Now().UTC().UnixNano())
 
+	// Intialize the first solution
 	firstValue, secondValue := anne.GenerateNeighbor()
-	current := anne.CostFunction(firstValue, secondValue)
-	best := current
+	currentEnergy := anne.CostFunction(firstValue, secondValue)
+	best := currentEnergy
 
-	// Input
+	// Input the first solution into the struct
 	anne.InputBest(counter)
-	anne.AppendSolution(firstValue, secondValue, current)
+	anne.AppendSolution(firstValue, secondValue, currentEnergy)
 
 	// Looping
 	for anne.KeepGoing() {
@@ -35,29 +37,29 @@ func main() {
 		// Generate energy cost
 		energy := anne.CostFunction(firstValue, secondValue)
 		// Calculate delta energy
-		changes := energy - current
+		deltaEnergy := energy - currentEnergy
 
-		// If changes < 0
-		if changes < 0 {
-			// Set the new generated energy as current solution
-			current = energy
+		// If deltaEnergy < 0
+		if deltaEnergy < 0 {
+			// Set the new generated energy as currentEnergy solution
+			currentEnergy = energy
 			solutionCounter++
 			// Save the solution
 			anne.AppendSolution(firstValue, secondValue, energy)
 
-			// If current solution better than the best, set the current as the best
-			if best > current {
-				best = current
+			// If currentEnergy solution better than the best, set the currentEnergy as the best
+			if best > currentEnergy {
+				best = currentEnergy
 				anne.InputBest(solutionCounter)
 			}
 		} else {
 			// Calculate Acceptance Probability
-			P := anne.AcceptanceProbability(current, energy)
-			R := rand.Float64()
+			probability := anne.AcceptanceProbability(currentEnergy, energy)
+			randomNumber := rand.Float64()
 
 			// If P >= then random number, set the newly generated as curent
-			if P >= R {
-				current = energy
+			if probability >= randomNumber {
+				currentEnergy = energy
 			}
 		}
 
