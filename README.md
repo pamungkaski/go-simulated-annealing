@@ -1,11 +1,12 @@
 # Simulated Annealing using Golang
 
 ## Visualization
-It is located inside visualization folder on the repository
 
 ![](https://svgshare.com/i/8PY.svg)
  
 >NB: The **bigger** the circle, the **smaller** the value
+
+> It is located inside visualization folder on the repository
 
 ## Description
 Simulated Annealing is an Algorithm that search for maximum/minimum value of a function.
