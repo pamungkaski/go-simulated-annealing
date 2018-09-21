@@ -1,5 +1,12 @@
 # Simulated Annealing using Golang
 
+## Visualization
+It is located inside visualization folder on the repository
+
+![](https://svgshare.com/i/8PY.svg)
+ 
+>NB: The **bigger** the circle, the **smaller** the value
+
 ## Description
 Simulated Annealing is an Algorithm that search for maximum/minimum value of a function.
 
@@ -85,10 +92,3 @@ It basically tells that the minimum value can be reached on the maximum or minum
  $ cd $GOPATH/src/github.com/pamungkaski/go-simulated-annealing
  $ go run app/main.go
 ```
-
-## Visualization
-It is located inside visualization folder on the repository
-
-![](https://svgshare.com/i/8PY.svg)
- 
->NB: The **bigger** the circle, the **smaller** the value
