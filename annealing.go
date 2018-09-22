@@ -1,4 +1,4 @@
-// Package SA is package that will model simulated annealing.
+// Package Simulated is package that will model simulated annealing.
 // It include all the main function of Simulated Annealing Algorithm.
 package Simulated
 
@@ -10,8 +10,8 @@ import (
 	"github.com/pamungkaski/go-simulated-annealing/visualizer"
 )
 
-// SimulatedAnnealing is the main interface that holds all of the SimulatedAnnealing Business Logic.
-type SimulatedAnnealing interface {
+// AnnealingModel is the main interface that holds all of the AnnealingModel Business Logic.
+type AnnealingModel interface {
 	//KeepGoing is a function that will check whether temperature already reached minimum to stop the loop.
 	KeepGoing() bool
 	// Cost function is the function that being simulated.
@@ -37,7 +37,7 @@ type Visualizer interface {
 	Visualize(XList, YList, ZList []float64)
 }
 
-// Annealing is the struct that implement SimulatedAnnealing interface.
+// Annealing is the struct that implement AnnealingModel interface.
 // This struct will hold the temperature, alpha, and value range.
 type Annealing struct {
 	temperature        float64
@@ -53,8 +53,8 @@ type Annealing struct {
 	visualizer         Visualizer
 }
 
-// NewAnnealing is a function that create SimulatedAnnealing instance using already set params.
-func NewAnnealing(temperature, alpha, minValue, maxValue, goal, minimumTemperature float64) SimulatedAnnealing {
+// NewAnnealing is a function that create AnnealingModel instance using already set params.
+func NewAnnealing(temperature, alpha, minValue, maxValue, goal, minimumTemperature float64) AnnealingModel {
 	return &Annealing{
 		temperature:        temperature,
 		alpha:              alpha,
