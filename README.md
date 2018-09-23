@@ -46,7 +46,7 @@ The comment is already tell how the program work.
 
 * Temperature: 100
 
-Temperature is being set become 1000 for more accuration purpose. The changes of temperature will effect the number of iterations
+Temperature is being set become 100 for more accuration purpose. The changes of temperature will effect the number of iterations
 
 * Alpha: 0.8 - 0.95
 
