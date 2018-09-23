@@ -83,7 +83,6 @@ fV:= -7.987430 sV:= -9.484198 E:= -18.844195, Accuration:= 98.103413%
 fV:= 8.086753 sV:= 9.655051 E:= -19.197690, Accuration:= 99.943718%
 fV:= -8.119189 sV:= -9.708009 E:= -19.147802, Accuration:= 99.683999%
 fV:= -8.034423 sV:= -9.605722 E:= -19.169468, Accuration:= 99.796792%
-
 ```
 > fV = First Value, sV = Second Value, E =  Energy Cost
 
