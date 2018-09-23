@@ -60,7 +60,7 @@ It being set to be 1000 to increase the accuration of the model
 
 * Goal: -19.208501
 
-The Goal is actually obtained by running The Simulated Annealing with Unlimited Temperatrue.
+The Goal is actually obtained by running Simulated Annealing with Unlimited Temperatrue.
 The best Solution that I've reached is -19.208501
 
 
