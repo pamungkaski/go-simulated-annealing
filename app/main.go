@@ -3,15 +3,15 @@
 package main
 
 import (
+	"fmt"
 	"math/rand"
+	"os"
+	"strconv"
 	"time"
 
 	"github.com/joho/godotenv"
 
-	"fmt"
 	"github.com/pamungkaski/go-simulated-annealing"
-	"os"
-	"strconv"
 )
 
 func main() {
