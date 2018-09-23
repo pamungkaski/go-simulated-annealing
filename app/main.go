@@ -8,10 +8,10 @@ import (
 
 	"github.com/joho/godotenv"
 
+	"fmt"
 	"github.com/pamungkaski/go-simulated-annealing"
 	"os"
 	"strconv"
-	"fmt"
 )
 
 func main() {
@@ -69,7 +69,7 @@ func main() {
 	fmt.Printf("Minimum Temperature: %.4f\n", minTemp)
 	fmt.Printf("Loop: %d\n", loop)
 
-	for i := 0; i < loop; i++{
+	for i := 0; i < loop; i++ {
 		// Creating Simulated Annealing instance.
 		anne := Simulated.NewAnnealing(temp, alpha, minValue, maxValue, goal, minTemp)
 		counter := 0
