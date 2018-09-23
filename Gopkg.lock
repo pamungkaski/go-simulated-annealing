@@ -14,6 +14,12 @@
   revision = "e2365dfdc4a05e4b8299a783240d4a7d5a65d4e4"
 
 [[projects]]
+  name = "github.com/joho/godotenv"
+  packages = ["."]
+  revision = "23d116af351c84513e1946b527c88823e476be13"
+  version = "v1.3.0"
+
+[[projects]]
   name = "github.com/jung-kurt/gofpdf"
   packages = ["."]
   revision = "14c1db30737a138f8d9797cffea58783892b2fae"
@@ -46,6 +52,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "62190ae086d249c151ae142403ff23b1d8ca04c69d77f842fc064c0fc20e2e7d"
+  inputs-digest = "2d2d15dffe9ef7717ff0c8ed3b0879d265b44449cc736eb0ca0049afb618e0e5"
   solver-name = "gps-cdcl"
   solver-version = 1
